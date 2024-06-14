@@ -19,13 +19,22 @@ class Home extends Component {
     // To avoid having dup values, we use the Math.random() function to generate a random value for a todo id.
     // This solution works for a small application but a more complex hashing function should be used when
     // dealing with a larger data sensitive project.
-    todo.id = Math.random();
-    // Create a array that contains the current array and the new todo item
-    let new_list = [...this.state.todos, todo];
-    // Update the local state with the new array.
-    this.setState({
-      todos: new_list,
-    });
+    console.log(this.state.todos)
+    const exists = this.state.todos.find(elem => elem.content === todo.content)
+    console.log("exists status: " + exists)
+    if(exists === undefined){
+      todo.id = Math.random()
+      // Create a array that contains the current array and the new todo item 
+  
+      let new_list = [...this.state.todos, todo];
+      // Update the local state with the new array.
+      this.setState({
+        todos: new_list,
+      });
+    }
+    else{
+      return; 
+    }
   };
   deleteTodo = (id) => {
     const todos = this.state.todos.filter((todo) => {
